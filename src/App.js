@@ -1,6 +1,8 @@
 import React from "react";
 import useInput from "./hooks/useInput";
 import useTabs from "./hooks/useTabs";
+import useTitle from "./hooks/useTitle";
+import useClick from "./hooks/useClick";
 
 function App() {
   // useInput
@@ -23,6 +25,15 @@ function App() {
 
   const { currentTab, changeTab } = useTabs(tabs, 1);
 
+  // useTitle
+  const updateTitle = useTitle('Loading...');
+  setTimeout(() => updateTitle('Nooks!'), 3000);
+
+  // useClick
+  const testTitle = useClick(() => {
+    testTitle.current.innerText = 'Well done!';
+  });
+
   return (
     <div>
       <h1>Playing with Hooks!</h1>
@@ -42,6 +53,10 @@ function App() {
       <div>
         {currentTab.content}
       </div>
+
+      <hr/>
+
+      <h2 ref={testTitle}>useClick (click here!)</h2>
     </div>
   );
 }
