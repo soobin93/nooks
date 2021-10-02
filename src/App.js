@@ -3,6 +3,8 @@ import useInput from "./hooks/useInput";
 import useTabs from "./hooks/useTabs";
 import useTitle from "./hooks/useTitle";
 import useClick from "./hooks/useClick";
+import onConfirm from "./hooks/onConfirm";
+import preventLeave from "./hooks/preventLeave";
 
 function App() {
   // useInput
@@ -34,6 +36,22 @@ function App() {
     testTitle.current.innerText = 'Well done!';
   });
 
+  // useConfirm
+  const deleteApple = () => {
+    console.log('Apple has been deleted.');
+  };
+
+  const cancelDelete = () => {
+    console.log('Request cancelled: Apple has not been deleted.')
+  };
+
+  const confirmDelete = () => {
+    onConfirm('Are you sure?', deleteApple, cancelDelete);
+  };
+
+  // usePreventLeave
+  const [protectLeave, unprotectLeave] = preventLeave();
+
   return (
     <div>
       <h1>Playing with Hooks!</h1>
@@ -57,6 +75,15 @@ function App() {
       <hr/>
 
       <h2 ref={testTitle}>useClick (click here!)</h2>
+
+      <hr/>
+
+      <button type="button" onClick={confirmDelete}>Delete Apple</button>
+
+      <hr/>
+
+      <button type="button" onClick={protectLeave}>Protect</button>
+      <button type="button" onClick={unprotectLeave}>Unprotect</button>
     </div>
   );
 }
