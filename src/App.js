@@ -5,6 +5,7 @@ import useTitle from "./hooks/useTitle";
 import useClick from "./hooks/useClick";
 import onConfirm from "./hooks/onConfirm";
 import preventLeave from "./hooks/preventLeave";
+import useBeforeLeave from "./hooks/useBeforeLeave";
 
 function App() {
   // useInput
@@ -51,6 +52,13 @@ function App() {
 
   // usePreventLeave
   const [protectLeave, unprotectLeave] = preventLeave();
+
+  // useBeforeLeave
+  const beforeMouseLeave = () => {
+    console.log('Warning: Do not leave your mouse from the top of the page!');
+  };
+
+  useBeforeLeave(beforeMouseLeave);
 
   return (
     <div>
