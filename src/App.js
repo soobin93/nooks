@@ -6,6 +6,8 @@ import useClick from "./hooks/useClick";
 import onConfirm from "./hooks/onConfirm";
 import preventLeave from "./hooks/preventLeave";
 import useBeforeLeave from "./hooks/useBeforeLeave";
+import useFadeIn from "./hooks/useFadeIn";
+import useNetwork from "./hooks/useNetwork";
 
 function App() {
   // useInput
@@ -60,6 +62,17 @@ function App() {
 
   useBeforeLeave(beforeMouseLeave);
 
+  // useFadeIn
+  const fadeInHeading = useFadeIn(3, 1);
+  const fadeInParagraph = useFadeIn(5, 2);
+
+  // useNetwork
+  const handleOnline = (status) => {
+    console.log(status ? 'Network is now online' : 'Network is now offline');
+  };
+
+  const online = useNetwork(handleOnline);
+
   return (
     <div>
       <h1>Playing with Hooks!</h1>
@@ -92,6 +105,14 @@ function App() {
 
       <button type="button" onClick={protectLeave}>Protect</button>
       <button type="button" onClick={unprotectLeave}>Unprotect</button>
+
+      <hr/>
+
+      <h1 {...fadeInHeading}>Fade In</h1>
+      <p {...fadeInParagraph}>fade fade fade in in in...! yay!</p>
+
+      <hr/>
+      <h1>Network Status: {online ? 'Online' : 'Offline'}</h1>
     </div>
   );
 }
